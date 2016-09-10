@@ -1,5 +1,5 @@
 import Control.Monad (forM_, when)
-import System.Environment as Env
+import qualified System.Environment as Env
 
 primes :: (Integral a) => [a]
 primes = let x = 2 : filter (isPrime x) [3..]
