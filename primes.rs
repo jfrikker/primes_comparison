@@ -1,20 +1,26 @@
 use std::cell::{Cell, RefCell};
 use std::env::{args};
+use std::ops::{Add, Mul, Rem};
 
-struct Primes {
-    primes : RefCell<Vec<u32>>,
-    max : Cell<u32>
+struct Primes<I> {
+    primes : RefCell<Vec<I>>,
+    max : Cell<I>
 }
 
-impl Primes {
-    fn new() -> Primes {
+impl<I: Copy +
+        From<u8> + 
+        Add<I, Output = I> +
+        Mul<I, Output = I> +
+        Rem<I, Output = I> +
+        Ord> Primes<I> {
+    fn new() -> Primes<I> {
         Primes {
-            primes: RefCell::new(vec!(2)),
-            max: Cell::new(2)
+            primes: RefCell::new(vec!(I::from(2u8))),
+            max: Cell::new(I::from(2u8))
         }
     }
 
-    fn is_prime(&self, n: u32) -> bool {
+    fn is_prime(&self, n: I) -> bool {
         while self.max.get() * self.max.get() < n {
             self.expand();
         }
@@ -25,7 +31,7 @@ impl Primes {
         } else {
             match primes.iter()
                   .take_while(|&&i| i * i <= n)
-                  .filter(|&&i| n % i == 0)
+                  .filter(|&&i| n % i == I::from(0))
                   .next() {
                 Some(_) => false,
                 None => true
@@ -34,7 +40,7 @@ impl Primes {
     }
 
     fn expand(&self) {
-        let max = self.max.get() + 1;
+        let max = self.max.get() + I::from(1);
         if self.is_prime(max) {
             let mut primes = self.primes.borrow_mut();
             primes.push(max);
