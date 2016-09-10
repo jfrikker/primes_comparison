@@ -23,14 +23,13 @@ impl Primes {
         if self.max.get() >= n {
             primes.binary_search(&n).is_ok()
         } else {
-            for i in primes.iter().cloned() {
-                if i * i > n {
-                    return true;
-                } else if n % i == 0 {
-                    return false;
-                }
+            match primes.iter()
+                  .take_while(|&&i| i * i <= n)
+                  .filter(|&&i| n % i == 0)
+                  .next() {
+                Some(_) => false,
+                None => true
             }
-            true
         }
     }
 
