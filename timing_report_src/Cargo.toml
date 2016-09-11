@@ -1,0 +1,7 @@
+[package]
+name = "timing_report"
+version = "0.1.0"
+authors = ["Joe Frikker <jfrikker@gmail.com>"]
+
+[dependencies]
+time = "0.1.35"
