@@ -6,9 +6,10 @@
 class Primes {
   public:
     Primes();
-    bool isPrime(uint32_t n);
+    bool isPrime(uint32_t n) const;
 
   private:
+    bool isPrimeInternal(uint32_t n);
     void expand();
 
     std::vector<uint32_t> primes;
@@ -27,7 +28,11 @@ void Primes::expand() {
   max++;
 }
 
-bool Primes::isPrime(uint32_t n) {
+bool Primes::isPrime(uint32_t n) const {
+  return const_cast<Primes *>(this)->isPrimeInternal(n);
+}
+
+bool Primes::isPrimeInternal(uint32_t n) {
   while (max * max < n) {
     expand();
   }
