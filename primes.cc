@@ -3,36 +3,41 @@
 #include <stdint.h>
 #include <vector>
 
+template <class I>
 class Primes {
   public:
     Primes();
-    bool isPrime(uint32_t n) const;
+    bool isPrime(I n) const;
 
   private:
-    bool isPrimeInternal(uint32_t n);
+    bool isPrimeInternal(I n);
     void expand();
 
-    std::vector<uint32_t> primes;
-    uint32_t max;
+    std::vector<I> primes;
+    I max;
 };
 
-Primes::Primes() {
+template <class I>
+Primes<I>::Primes() {
   primes.push_back(2);
   max = 2;
 }
 
-void Primes::expand() {
+template <class I>
+void Primes<I>::expand() {
   if (isPrime(max + 1)) {
     primes.push_back(max + 1);
   }
   max++;
 }
 
-bool Primes::isPrime(uint32_t n) const {
+template <class I>
+bool Primes<I>::isPrime(I n) const {
   return const_cast<Primes *>(this)->isPrimeInternal(n);
 }
 
-bool Primes::isPrimeInternal(uint32_t n) {
+template <class I>
+bool Primes<I>::isPrimeInternal(I n) {
   while (max * max < n) {
     expand();
   }
@@ -54,7 +59,7 @@ bool Primes::isPrimeInternal(uint32_t n) {
 
 int main(int argc, char** argv) {
   uint32_t n = atoi(argv[1]);
-  Primes primes;
+  Primes<uint32_t> primes;
   for (uint32_t i = 1; i <= n; i++) {
     if (primes.isPrime(i)) {
       std::cout << i << std::endl;
