@@ -1,5 +1,5 @@
 use std::cell::{Cell, RefCell};
-use std::env::{args};
+use std::env::args;
 use std::ops::{Add, Mul, Rem};
 
 struct Primes<I> {
