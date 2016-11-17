@@ -49,6 +49,7 @@ fn main() {
     report_execution("C++", &vec!("./primes_cc"));
     report_execution("Rust", &vec!("./primes_rs"));
     report_execution("Java", &vec!("java", "Primes"));
+    report_execution("Pypy", &vec!("pypy", "primes.py"));
     report_execution("Haskell", &vec!("./primes_hs"));
     report_execution("Python", &vec!("python", "primes.py"));
 }
