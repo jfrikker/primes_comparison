@@ -1,0 +1,7 @@
+*.class
+*.hi
+*.o
+primes_cc
+primes_hs
+primes_rs
+timing_report
